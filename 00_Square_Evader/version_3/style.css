@@ -1,0 +1,16 @@
+body {
+    text-align: center;
+    background: linear-gradient(0deg, #000000, #0b0b0b, #070707);
+    background-size: 150% 150%;
+    animation: gradient-animation 18s ease infinite;
+}
+
+h1 {
+    color: white;
+    font-size: 32px;
+    margin: 48px;
+}
+
+canvas {
+    border: 1px solid rgb(19, 73, 127);
+}
