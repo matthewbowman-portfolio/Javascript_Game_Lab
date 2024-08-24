@@ -1,0 +1,15 @@
+body {
+    text-align: center;
+    background: linear-gradient(0deg, #000000, #08142c, #06183c);
+    background-size: 100% 150%;
+}
+
+h1 {
+    color: white;
+    font-size: 32px;
+    margin: 48px;
+}
+
+canvas {
+    border: 1px solid rgb(0, 0, 0);
+}
