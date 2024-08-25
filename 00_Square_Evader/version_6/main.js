@@ -61,6 +61,19 @@ var clock = new Clock();
 
 //----------------------------------------------------------------------------------------------------
 
+//audio
+var audio = document.querySelector("audio");
+audio.loop = true;
+
+//volume slider
+var volumeSlider = document.querySelector(".volume-slider");
+volumeSlider.addEventListener("input", function(event) {
+    //volume must be a number between 0 and 1
+    audio.volume = event.target.value / 100;
+})
+
+//----------------------------------------------------------------------------------------------------
+
 //key down trackers
 var w_down = false;
 var a_down = false;
@@ -110,6 +123,7 @@ document.addEventListener("keyup", function(event) {
 //player class
 class Player {
     constructor() {
+        this.health = 27;
         this.position_x = (canvas.width / 2) - 20;
         this.position_y = (canvas.height / 2) - 20;
         this.width = 32;
@@ -155,14 +169,15 @@ class Player {
     }
 }
 
-//create white box object
+//create player object
 var player = new Player();
 
 //----------------------------------------------------------------------------------------------------
 
-//enemy class
-class Enemy {
-    constructor() {
+//red square class
+class RedSquare {
+    constructor(health) {
+        this.health = health;
         this.position_x = (canvas.width / 2) - 200;
         this.position_y = (canvas.height / 2) - 200;
         this.width = 16;
@@ -186,9 +201,9 @@ class Enemy {
 
     //
 
-    //update position
-    updatePosition() {
-        //
+    //update
+    update() {
+        //update position
         if (this.movingUp === true) {
             this.position_y -= 3;
         }
@@ -202,26 +217,30 @@ class Enemy {
             this.position_x += 3;
         }
 
-        //change direction if enemy collides with boundary
+        //change direction and decrease health if enemy collides with boundary
         if (this.position_y < 0) {
             this.position_y = 0;
             this.movingUp = false;
             this.movingDown = true;
+            this.health -= 1;
         }
         if (this.position_y > canvas.height - this.height) {
             this.position_y = canvas.height - this.height;
             this.movingDown = false;
             this.movingUp = true;
+            this.health -= 1;
         }
         if (this.position_x < 0) {
             this.position_x = 0;
             this.movingLeft = false;
             this.movingRight = true;
+            this.health -= 1;
         }
         if (this.position_x > canvas.width - this.width) {
             this.position_x = canvas.width - this.width;
             this.movingRight = false;
             this.movingLeft = true;
+            this.health -= 1;
         }
     }
 
@@ -231,8 +250,59 @@ class Enemy {
     }
 }
 
-//create enemy
-var enemy = new Enemy();
+//enemies class
+class Enemies {
+    constructor() {
+        this.array = []
+
+    }
+
+    //
+    spawn_red_squares(waveType, numSquares, speed, health) {
+        //
+        switch (waveType) {
+            case 1 :
+                for (let i = 1; i < numSquares + 1; i++) {
+                    setTimeout(() => {
+                        console.log(i + " red square spawned");
+                        this.array.push(new RedSquare(health));
+                    }, (speed) * i);
+                }
+            case 2 :
+                
+        }
+    }
+
+    update() {
+        //check all enemies health
+        for (let i = 0; i < this.array.length; i++) {
+            if (this.array[i].health <= 0) {
+                this.array.splice(i, 1);
+            }
+        }
+
+        for (let i = 0; i < this.array.length; i++) {
+            this.array[i].update();
+        }
+    }
+
+    draw() {
+        //
+        for (let i = 0; i < this.array.length; i++) {
+            this.array[i].draw();
+        }
+    }
+}
+
+//create enemies object
+var enemies = new Enemies();
+
+//spawn enemy wave - (waveType, numSquares, speed, health)
+enemies.spawn_red_squares(1, 10, 1000, 50);
+setTimeout(() => {
+    console.log("audio started");
+    audio.play();
+}, 1000);
 
 //----------------------------------------------------------------------------------------------------
 
@@ -241,7 +311,7 @@ function updateGameObjects() {
     //
     clock.update();
     player.updatePosition();
-    enemy.updatePosition();
+    enemies.update();
 }
 
 //draw game objects
@@ -250,7 +320,7 @@ function drawGameObjects() {
     resetCanvas();
     clock.display();
     player.draw();
-    enemy.draw();
+    enemies.draw();
 }
 
 //----------------------------------------------------------------------------------------------------
