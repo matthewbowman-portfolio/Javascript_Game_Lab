@@ -1,0 +1,25 @@
+body {
+    text-align: center;
+    background: linear-gradient(0deg, #000000, #08142c, #06183c);
+    background-size: 100% 150%;
+}
+
+div > header > .square-logo {
+    color: rgb(232, 232, 232);
+}
+
+canvas {
+    border: 1px solid rgb(0, 0, 0);
+    margin: 8px;
+}
+
+.slide-container {
+    font-size: 16px;
+    margin: 24px;
+}
+
+footer {
+    color: rgb(177, 177, 177);
+    font-size: 16px;
+    margin: 16px;
+}
