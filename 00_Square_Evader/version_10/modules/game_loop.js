@@ -1,22 +1,22 @@
-//mouse
 import { Mouse } from "./mouse.js"; console.log("Importing Class : %cMouse", "color: rgb(50, 150, 25);");
 var mouse = new Mouse(); console.log("Variable Created : %cmouse\n ", "color: rgb(75, 150, 200);");
-
-//keyboard
 import { KeyBoard } from "./keyboard.js"; console.log("Importing Class : %cKeyBoard", "color: rgb(50, 150, 25);");
 var keyBoard = new KeyBoard(); console.log("Variable Created : %ckeyBoard\n ", "color: rgb(75, 150, 200);");
-
-//canvas
 import { Canvas } from "./canvas.js"; console.log("Importing Class : %cCanvas", "color: rgb(50, 150, 25);");
 var canvas = new Canvas(); console.log("Variable Created : %ccanvas\n ", "color: rgb(75, 150, 200);");
-
-//start menu
+import { Clock } from "./clock.js"; console.log("Importing Class : %cClock", "color: rgb(50, 150, 25);");
+var clock = new Clock(); console.log("Variable Created : %cclock\n ", "color: rgb(75, 150, 200);");
+import { Audio } from "./audio.js"; console.log("Importing Class : %cAudio", "color: rgb(50, 150, 25);");
+var audio = new Audio(); console.log("Variable Created : %caudio\n ", "color: rgb(75, 150, 200);");
 import { StartMenu } from "./start_menu.js"; console.log("Importing Class : %cStartMenu", "color: rgb(50, 150, 25);");
 var startMenu = new StartMenu(); console.log("Variable Created : %cstartMenu\n ", "color: rgb(75, 150, 200);");
-
-//player
 import { Player } from "./player.js"; console.log("Importing Class : %cPlayer", "color: rgb(50, 150, 25);");
 var player = new Player(); console.log("Variable Created : %cplayer\n ", "color: rgb(75, 150, 200);");
+import { Enemies } from "./enemies.js"; console.log("Importing Class : %cEnemies", "color: rgb(50, 150, 25);");
+var enemies = new Enemies(); console.log("Variable Created : %cenemies ", "color: rgb(75, 150, 200);");
+import { RedSquare } from "./enemies.js"; console.log("Importing Class : %cRedSquare\n ", "color: rgb(50, 150, 25);");
+import { Waves } from "./waves.js"; console.log("Importing Class : %cWaves", "color: rgb(50, 150, 25);");
+var waves = new Waves(); console.log("Variable Created : %cwaves\n ", "color: rgb(75, 150, 200);");
 
 //----------------------------------------------------------------------------------------------------
 
@@ -115,6 +115,14 @@ document.addEventListener("keyup", function(event) {
 
 //----------------------------------------------------------------------------------------------------
 
+//volume slider input
+audio.volumeSlider.addEventListener("input", function(event) {
+    //volume must be a number between 0 and 1
+    audio.element.volume = event.target.value / 100;
+})
+
+//----------------------------------------------------------------------------------------------------
+
 //game state  ("start-menu" , "game-live" , "game-paused" , "game-over")
 var gameState = "start-menu"
 
@@ -122,17 +130,29 @@ var gameState = "start-menu"
 export function gameLoop() {
     //reset canvas
     canvas.reset();
+    //update clock
+    clock.update();
+    clock.display();
 
     switch (gameState) {
         case "start-menu" :
-            startMenu.update(mouse);
+            startMenu.update(mouse, audio);
             startMenu.display(canvas);
             gameState = startMenu.returnGameState();
             break;
         case "game-live" :
-            player.update(mouse, keyBoard);
+            //player
+            player.update(mouse, keyBoard, audio);
             player.display(canvas);
             gameState = player.returnGameState();
+
+            //enemies
+            enemies.update(canvas, player);
+            enemies.display(canvas);
+
+            //waves
+            waves.update(enemies);
+
             break;
         case "game-paused" :
             console.log("game is paused");
@@ -144,6 +164,4 @@ export function gameLoop() {
 
     //reset mouse
     mouse.reset();
-    //reset keydown
-    keyBoard.reset();
 }

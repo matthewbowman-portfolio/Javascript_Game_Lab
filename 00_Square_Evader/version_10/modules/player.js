@@ -3,6 +3,12 @@ export class Player {
         //game state
         this.gameState = "game-live";
 
+        //player score
+        this.score = 0;
+        this.score_element = document.querySelector(".score-tracker");
+        this.score_element.style.color = "rgb(177, 177, 177)";
+        this.score_element.innerHTML = "Score :  " + this.score;
+
         this.health = 3;
         this.speed = 3;
         this.hittable = true;
@@ -31,11 +37,16 @@ export class Player {
     }
 
     //update
-    update(mouse, keyBoard) {
+    update(mouse, keyBoard, audio) {
         //if player health <= 0 then game over
         if (this.health <= 0) {
-            this.game_state = "game-over"
+            this.gameState = "game-over";
+            audio.element.pause();
         }
+
+        //update score
+        this.score++;
+        this.score_element.innerHTML = "Score :  " + (Math.floor(this.score/10));
 
         //if key down, move player
         if (keyBoard.w_down === true || keyBoard.arrow_up === true) { 

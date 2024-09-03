@@ -9,6 +9,7 @@ export class Canvas {
         this.context.imageSmoothingEnabled = false;
     }
 
+    //reset canvas to black
     reset() {
         this.context.fillStyle = "(0, 0, 0)";
         this.context.fillRect(0, 0, this.width, this.height);
