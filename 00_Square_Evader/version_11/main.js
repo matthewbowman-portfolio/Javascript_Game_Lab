@@ -3,19 +3,15 @@ import { gameLoop } from "./modules/game_loop.js";
 
 //----------------------------------------------------------------------------------------------------
 
-;(() => {
+//main function
+function main() {
 
-    //main function
-    function main() {
-
-        //syncs frame rate at 60fps
-        window.requestAnimationFrame(main);
-        
-        //game loop
-        gameLoop();
-        }
+    //syncs frame rate at 60fps
+    window.requestAnimationFrame(main);
     
-    //run main
-    main();
+    //game loop
+    gameLoop();
+}
 
-})();
+//run main
+main();
