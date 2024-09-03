@@ -43,9 +43,9 @@ export class StartMenu {
         canvas.context.drawImage(this.newGameButton, x, y);
 
         //change fill color and display text, then change fill color back to black
-        canvas.context.font = "18px arial";
+        canvas.context.font = "16px courier";
         canvas.context.fillStyle = "white";
-        canvas.context.fillText(this.newGameButtonText.innerHTML, 355, 230);
+        canvas.context.fillText(this.newGameButtonText.innerHTML, 362, 228);
         canvas.context.fillStyle = "black";
     }
 

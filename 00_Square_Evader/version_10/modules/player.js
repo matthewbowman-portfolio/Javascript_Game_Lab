@@ -9,7 +9,7 @@ export class Player {
         this.score_element.style.color = "rgb(177, 177, 177)";
         this.score_element.innerHTML = "Score :  " + this.score;
 
-        this.health = 3;
+        this.health = 3000;
         this.speed = 3;
         this.hittable = true;
         this.width = 32;

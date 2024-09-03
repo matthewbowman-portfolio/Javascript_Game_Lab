@@ -1,5 +1,6 @@
 body {
     text-align: center;
+    font-family:'Courier New', Courier, monospace;
     background: linear-gradient(0deg, #000000, #08142c, #06183c);
     background-size: 100% 150%;
 }
