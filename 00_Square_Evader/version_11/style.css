@@ -1,0 +1,33 @@
+body {
+    text-align: center;
+    font-family:'Courier New', Courier, monospace;
+    background: linear-gradient(0deg, #000000, #24282b, #252b33);
+    background-size: 100% 150%;
+}
+
+div > header > .square-logo {
+    color: rgb(232, 232, 232);
+    font-size: 18px;
+}
+
+canvas {
+    width: 800px;
+    height: 608px;
+    border: 1px solid rgb(0, 0, 0);
+    margin: 8px;
+}
+
+.slide-container {
+    font-size: 16px;
+    margin: 24px;
+}
+
+footer {
+    color: rgb(177, 177, 177);
+    font-size: 16px;
+    margin: 16px;
+}
+
+.nav-item {
+    margin: 16px;
+}
