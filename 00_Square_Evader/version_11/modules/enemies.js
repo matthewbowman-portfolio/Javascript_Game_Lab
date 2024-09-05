@@ -4,40 +4,64 @@ export class Enemies {
     }
 
     //spawn red squares
-    spawnRedSquares(numSquares, health, speed, ms_interval) {
+    spawnRedSquares(numSquares, health, speed, ms_interval, player) {
         console.log("Spawning : %c" + numSquares + " Red Squares...", "color: rgb(200, 25, 25);");
         //
-        let counter = 128;
-
         for (let i = 1; i < numSquares + 1; i++) {
-            counter += 64;
-            if (counter >= 704) {
-                counter = 128;
-            }
+            let x = Math.floor((Math.random() * 752) + 16);
+            let y = Math.floor((Math.random() * 560) + 16);
 
-            let x = counter;
-            let y = 100;
-            
             //
             setTimeout(() => {
+                //if enemy spawn too close to player, randomize position until it isn't
+                while (x + 16 > player.left - 64 && x < player.right + 64 && y + 16 > player.top - 64 && y < player.bottom + 64) {
+                    x = Math.floor((Math.random() * 752) + 16);
+                    y = Math.floor((Math.random() * 560) + 16);
+                }
+
                 this.array.push(new RedSquare(health, speed, x, y));
-                console.log("%credSquare_" + i + " : %cspawned", "color: rgb(75, 150, 200);", "color: rgb(225, 225, 150);");
             }, (ms_interval) * i);
         }
     }
 
     //spawn teal squares
-    spawnTealSquares(numSquares, health, speed, ms_interval) {
+    spawnTealSquares(numSquares, health, speed, ms_interval, player) {
         console.log("Spawning : %c" + numSquares + " Teal Squares...", "color: rgb(200, 25, 25);");
         //
         for (let i = 1; i < numSquares + 1; i++) {
-            let x = Math.floor((Math.random() * 768) + 16);
-            let y = Math.floor((Math.random() * 576) + 16);
+            let x = Math.floor((Math.random() * 744) + 16);
+            let y = Math.floor((Math.random() * 552) + 16);
 
             //
             setTimeout(() => {
+                //if enemy spawn too close to player, randomize position until it isn't
+                while (x + 24 > player.left - 96 && x < player.right + 96 && y + 24 > player.top - 96 && y < player.bottom + 96) {
+                    x = Math.floor((Math.random() * 744) + 16);
+                    y = Math.floor((Math.random() * 552) + 16);
+                }
+
                 this.array.push(new TealSquare(health, speed, x, y));
-                console.log("%ctealSquare_" + i + " : %cspawned", "color: rgb(75, 150, 200);", "color: rgb(225, 225, 150);");
+            }, (ms_interval) * i);
+        }
+    }
+
+    //spawn yellow squares
+    spawnYellowSquares(numSquares, health, speed, ms_interval, player) {
+        console.log("Spawning : %c" + numSquares + " Yellow Squares...", "color: rgb(200, 25, 25);");
+        //
+        for (let i = 1; i < numSquares + 1; i++) {
+            let x = Math.floor((Math.random() * 512) + 16);
+            let y = Math.floor((Math.random() * 544) + 16);
+
+            //
+            setTimeout(() => {
+                //if enemy spawn too close to player, randomize position until it isn't
+                while (x + 256 > player.left - 32 && x < player.right + 32 && y + 32 > player.top - 128 && y < player.bottom + 128) {
+                    x = Math.floor((Math.random() * 512) + 16);
+                    y = Math.floor((Math.random() * 544) + 16);
+                }
+
+                this.array.push(new YellowSquare(health, speed, x, y));
             }, (ms_interval) * i);
         }
     }
@@ -248,9 +272,26 @@ export class RedSquare extends Enemy {
         //set image source
         this.image.src = "images/red-square-16px.png"
 
-        //starting direction
-        this.movingUp = true;
-        this.movingLeft = true;
+        //get random starting direction
+        let randNum = Math.floor(Math.random() * 4) + 1;
+        switch (randNum) {
+            case 1 :
+                this.movingLeft = true;
+                this.movingUp = true;
+                break;
+            case 2 :
+                this.movingRight = true;
+                this.movingUp = true;
+                break;
+            case 3 :
+                this.movingLeft = true;
+                this.movingDown = true;
+                break;
+            case 4 :
+                this.movingRight = true;
+                this.movingDown = true;
+                break;
+        }
     }
 }
 
@@ -281,6 +322,33 @@ export class TealSquare extends Enemy {
                 this.movingUp = true;
                 break;
             case 4 :
+                this.movingDown = true;
+                break;
+        }
+    }
+}
+
+//----------------------------------------------------------------------------------------------------
+
+export class YellowSquare extends Enemy {
+    constructor(health, speed, x, y) {
+        //call parent class constructor and functions
+        super(health, speed, x, y);
+
+        //set width and height
+        this.width = 256;
+        this.height = 32;
+
+        //set image source
+        this.image.src = "images/yellow-square-256x32px.png"
+
+        //get random starting direction
+        let randNum = Math.floor(Math.random() * 2) + 1;
+        switch (randNum) {
+            case 1 :
+                this.movingUp = true;
+                break;
+            case 2 :
                 this.movingDown = true;
                 break;
         }

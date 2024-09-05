@@ -13,8 +13,7 @@ var startMenu = new StartMenu(); console.log("Variable Created : %cstartMenu\n "
 import { Player } from "./player.js"; console.log("Importing Class : %cPlayer", "color: rgb(50, 150, 25);");
 var player = new Player(); console.log("Variable Created : %cplayer\n ", "color: rgb(75, 150, 200);");
 import { Enemies } from "./enemies.js"; console.log("Importing Class : %cEnemies", "color: rgb(50, 150, 25);");
-var enemies = new Enemies(); console.log("Variable Created : %cenemies ", "color: rgb(75, 150, 200);");
-import { RedSquare } from "./enemies.js"; console.log("Importing Class : %cRedSquare\n ", "color: rgb(50, 150, 25);");
+var enemies = new Enemies(); console.log("Variable Created : %cenemies\n ", "color: rgb(75, 150, 200);");
 import { Waves } from "./waves.js"; console.log("Importing Class : %cWaves", "color: rgb(50, 150, 25);");
 var waves = new Waves(); console.log("Variable Created : %cwaves\n ", "color: rgb(75, 150, 200);");
 
@@ -151,7 +150,7 @@ export function gameLoop() {
             enemies.display(canvas);
 
             //waves
-            waves.update(enemies);
+            waves.update(player, enemies);
 
             break;
         case "game-paused" :
