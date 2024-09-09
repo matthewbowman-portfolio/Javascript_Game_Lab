@@ -125,7 +125,7 @@ audio.volumeSlider.addEventListener("input", function(event) {
 //game state  ("start-menu" , "game-live" , "game-paused" , "game-over")
 var gameState = "start-menu"
 
-//
+//game loop
 export function gameLoop() {
     //reset canvas
     canvas.reset();

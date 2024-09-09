@@ -1,6 +1,6 @@
 export class Waves {
     constructor() {
-        this.current_wave = 29;
+        this.current_wave = 27;
         this.wave_element = document.querySelector(".wave-tracker");
         this.wave_element.style.color = "rgb(177, 177, 177)";
         this.wave_element.innerHTML = "Wave :  " + this.current_wave;

@@ -13,7 +13,7 @@ export class Enemies {
 
             //
             setTimeout(() => {
-                //if enemy spawn too close to player, randomize position until it isn't
+                //if enemy spawn point too close to player, randomize position until it isn't
                 while (x + 16 > player.left - 64 && x < player.right + 64 && y + 16 > player.top - 64 && y < player.bottom + 64) {
                     x = Math.floor((Math.random() * 752) + 16);
                     y = Math.floor((Math.random() * 560) + 16);
@@ -92,6 +92,11 @@ export class Enemies {
 
 export class Enemy {
     constructor(health, speed, x, y) {
+        //
+        this.color_ID = "";
+        this.animated = false;
+
+        //
         this.health = health;
         this.speed = speed;
         this.pos_x = x;
@@ -114,7 +119,11 @@ export class Enemy {
 
         //create image element
         this.image = document.createElement("img");
-        this.image.src = "";
+        this.image.src = ""
+
+        //
+        this.image.counter = 0;
+        this.fps = 8;
 
         //append image to canvas
         document.querySelector("canvas").appendChild(this.image);
@@ -130,8 +139,20 @@ export class Enemy {
     }
 
     update(canvas, player) {
+
+        //update image
+        if (this.animated === true) {
+            //calculate which image to display
+            this.image.counter += 1;
+            if (this.image.counter >= 60) {
+                this.image.counter = 0;
+            }
+            //set image accordingly
+            this.image.src = `images/${this.color_ID}_squares/${this.color_ID}-square-${Math.floor((this.image.counter / (60 / this.fps)) + 1)}.png`
+        }
+
         //update position
-        if (this.movingLeft === true) { 
+        if (this.movingLeft === true) {
             this.pos_x -= this.speed;
         }
         if (this.movingRight === true) {
@@ -265,12 +286,16 @@ export class RedSquare extends Enemy {
         //call parent class constructor and functions
         super(health, speed, x, y);
 
+        //set color id and animated boolean
+        this.color_ID = "red"
+        this.animated = true;
+
         //set width and height
         this.width = 16;
         this.height = 16;
 
         //set image source
-        this.image.src = "images/red-square-16px.png"
+        this.image.src = "images/red_squares/red-square-1.png"
 
         //get random starting direction
         let randNum = Math.floor(Math.random() * 4) + 1;
@@ -302,12 +327,17 @@ export class TealSquare extends Enemy {
         //call parent class constructor and functions
         super(health, speed, x, y);
 
+        //set color id
+        this.color_ID = "blue";
+        this.animated = true;
+
         //set width and height
         this.width = 24;
         this.height = 24;
 
         //set image source
-        this.image.src = "images/teal-square-24px.png"
+        this.image.src = "images/blue_squares/blue-square-1.png"
+
 
         //get random starting direction
         let randNum = Math.floor(Math.random() * 4) + 1;
@@ -335,12 +365,16 @@ export class YellowSquare extends Enemy {
         //call parent class constructor and functions
         super(health, speed, x, y);
 
+        //set color id
+        this.color_ID = "yellow";
+        this.animated = true;
+
         //set width and height
         this.width = 256;
-        this.height = 32;
+        this.height = 16;
 
         //set image source
-        this.image.src = "images/yellow-square-256x32px.png"
+        this.image.src = "images/yellow_squares/yellow-square-1.png"
 
         //get random starting direction
         let randNum = Math.floor(Math.random() * 2) + 1;
