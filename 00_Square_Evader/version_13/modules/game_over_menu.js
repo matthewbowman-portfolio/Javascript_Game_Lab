@@ -1,7 +1,7 @@
-export class StartMenu {
+export class GameOverMenu {
     constructor() {
         //game state
-        this.gameState = "start-menu";
+        this.gameState = "game-over"
 
         //new game button
         this.newGameButton = document.createElement("img");
@@ -21,12 +21,19 @@ export class StartMenu {
     }
 
     //update
-    update(mouse, audio) {
+    update(mouse, audio, player, enemies, waves) {
         if (mouse.clicked === true) {
             //if collides with newGameButton
             if (mouse.canvas_x >= this.newGameButton.pos_x && mouse.canvas_x <= this.newGameButton.pos_x + this.newGameButton.width - 1) {
                 if (mouse.canvas_y >= this.newGameButton.pos_y && mouse.canvas_y <= this.newGameButton.pos_y + this.newGameButton.height - 1) {
                     this.gameState = "game-live";
+                    player.gameState = "game-live";
+                    player.health = 3;
+                    player.score = 0;
+                    enemies.array = [];
+                    waves.current_wave = 1;
+                    waves.wave_activated = false;
+                    waves.first_enemy_spawned = false;
                     console.log("%cNew Game Button : %cClicked", "color: rgb(75, 150, 200);", "color: rgb(225, 225, 150);");
                     console.log("%cNew Game Started\n ", "color: rgb(50, 150, 25);");
                     audio.element.play();

@@ -9,7 +9,7 @@ export class Player {
         this.score_element.style.color = "rgb(177, 177, 177)";
         this.score_element.innerHTML = "Score :  " + this.score;
 
-        this.health = 9;
+        this.health = 3;
         this.speed = 3;
         this.hittable = true;
         this.width = 32;
@@ -37,14 +37,15 @@ export class Player {
     }
 
     //update
-    update(mouse, keyBoard, audio) {
+    update(mouse, keyBoard, audio, gameOverMenu) {
         //if player health <= 0 then game over  -  if player health > 9, set it back to 9
         if (this.health <= 0) {
             this.gameState = "game-over";
+            gameOverMenu.gameState = "game-over";
             audio.element.pause();
         }
-        if (this.health > 9) {
-            this.health = 9;
+        if (this.health > 3) {
+            this.health = 3;
         }
 
         //update score

@@ -10,6 +10,8 @@ import { Audio } from "./audio.js"; console.log("Importing Class : %cAudio", "co
 var audio = new Audio(); console.log("Variable Created : %caudio\n ", "color: rgb(75, 150, 200);");
 import { StartMenu } from "./start_menu.js"; console.log("Importing Class : %cStartMenu", "color: rgb(50, 150, 25);");
 var startMenu = new StartMenu(); console.log("Variable Created : %cstartMenu\n ", "color: rgb(75, 150, 200);");
+import { GameOverMenu } from "./game_over_menu.js"; console.log("Importing Class : %cGameOverMenu", "color: rgb(50, 150, 25);");
+var gameOverMenu = new GameOverMenu(); console.log("Variable Created : %cgameOverMenu\n ", "color: rgb(75, 150, 200);");
 import { Player } from "./player.js"; console.log("Importing Class : %cPlayer", "color: rgb(50, 150, 25);");
 var player = new Player(); console.log("Variable Created : %cplayer\n ", "color: rgb(75, 150, 200);");
 import { Enemies } from "./enemies.js"; console.log("Importing Class : %cEnemies", "color: rgb(50, 150, 25);");
@@ -133,6 +135,9 @@ export function gameLoop() {
     clock.update();
     clock.display();
 
+    //
+    console.log(`Game State : ${gameState}\nPlayer Health : ${player.health}\nPlayer Score : ${Math.floor(player.score/10)}\nWave : ${waves.current_wave}`);
+
     switch (gameState) {
         case "start-menu" :
             startMenu.update(mouse, audio);
@@ -141,7 +146,7 @@ export function gameLoop() {
             break;
         case "game-live" :
             //player
-            player.update(mouse, keyBoard, audio);
+            player.update(mouse, keyBoard, audio, gameOverMenu);
             player.display(canvas);
             gameState = player.returnGameState();
 
@@ -153,11 +158,10 @@ export function gameLoop() {
             waves.update(player, enemies);
 
             break;
-        case "game-paused" :
-            console.log("game is paused");
-            break;
         case "game-over" :
-            console.log("game is over");
+            gameOverMenu.update(mouse, audio, player, enemies, waves);
+            gameOverMenu.display(canvas);
+            gameState = gameOverMenu.returnGameState();
             break;
     }
 

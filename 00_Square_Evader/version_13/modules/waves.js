@@ -1,6 +1,6 @@
 export class Waves {
     constructor() {
-        this.current_wave = 27;
+        this.current_wave = 1;
         this.wave_element = document.querySelector(".wave-tracker");
         this.wave_element.style.color = "rgb(177, 177, 177)";
         this.wave_element.innerHTML = "Wave :  " + this.current_wave;
@@ -30,13 +30,16 @@ export class Waves {
             setTimeout(() => {
                 this.wave_activated = false;
                 this.current_wave++;
-                this.wave_element.innerHTML = "Wave :  " + this.current_wave;
             }, 3000);
         }
     }
 
     //update
     update(player, enemies) {
+
+        //
+        this.wave_element.innerHTML = "Wave :  " + this.current_wave;
+
         switch (this.current_wave) {
 
             //wave 1

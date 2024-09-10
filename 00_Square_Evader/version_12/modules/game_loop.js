@@ -153,9 +153,6 @@ export function gameLoop() {
             waves.update(player, enemies);
 
             break;
-        case "game-paused" :
-            console.log("game is paused");
-            break;
         case "game-over" :
             console.log("game is over");
             break;
