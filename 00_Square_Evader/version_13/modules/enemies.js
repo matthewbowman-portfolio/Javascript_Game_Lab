@@ -288,14 +288,14 @@ export class RedSquare extends Enemy {
 
         //set color id and animated boolean
         this.color_ID = "red"
-        this.animated = true;
+        this.animated = false;
 
         //set width and height
         this.width = 16;
         this.height = 16;
 
         //set image source
-        this.image.src = "images/red_squares/red-square-1.png"
+        this.image.src = "images/red-square-16px.png"
 
         //get random starting direction
         let randNum = Math.floor(Math.random() * 4) + 1;
@@ -328,15 +328,15 @@ export class TealSquare extends Enemy {
         super(health, speed, x, y);
 
         //set color id
-        this.color_ID = "blue";
-        this.animated = true;
+        this.color_ID = "teal";
+        this.animated = false;
 
         //set width and height
         this.width = 24;
         this.height = 24;
 
         //set image source
-        this.image.src = "images/blue_squares/blue-square-1.png"
+        this.image.src = "images/teal-square-24px.png"
 
 
         //get random starting direction
@@ -367,7 +367,7 @@ export class YellowSquare extends Enemy {
 
         //set color id
         this.color_ID = "yellow";
-        this.animated = true;
+        this.animated = false;
 
         //set width and height
         this.width = 256;
